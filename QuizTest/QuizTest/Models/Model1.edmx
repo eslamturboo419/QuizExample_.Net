@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QuizDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Admin_Id" Type="int" />
+          <Property Name="EncRoom" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Qu_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Answer_1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Answer_2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Answer_3" Type="nvarchar" MaxLength="50" />
+          <Property Name="Answer_4" Type="nvarchar" MaxLength="50" />
+          <Property Name="Answer_Correct" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cat_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="SetExam">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Exam_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Score" Type="int" />
+          <Property Name="Stu_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Category_Admin">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="Admin_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questions_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="Cat_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SetExam_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="SetExam" Type="Self.SetExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SetExam">
+              <PropertyRef Name="Stu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuizDBModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SetExam" EntityType="Self.SetExam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Category_Admin" Association="Self.FK_Category_Admin">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questions_Category" Association="Self.FK_Questions_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SetExam_Student" Association="Self.FK_SetExam_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="SetExam" EntitySet="SetExam" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuizDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK_Category_Admin" FromRole="Admin" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Admin_Id" Type="Int32" />
+          <NavigationProperty Name="Admin" Relationship="Self.FK_Category_Admin" FromRole="Category" ToRole="Admin" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK_Questions_Category" FromRole="Category" ToRole="Questions" />
+          <Property Name="EncRoom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Qu_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Answer_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Answer_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Answer_3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Answer_4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Answer_Correct" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cat_Id" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Questions_Category" FromRole="Questions" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="SetExam">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Exam_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="Stu_Id" Type="Int32" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_SetExam_Student" FromRole="SetExam" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SetExams" Relationship="Self.FK_SetExam_Student" FromRole="Student" ToRole="SetExam" />
+        </EntityType>
+        <Association Name="FK_Category_Admin">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="Admin_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questions_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="Cat_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SetExam_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="SetExam" Type="Self.SetExam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SetExam">
+              <PropertyRef Name="Stu_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuizDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="SetExams" EntityType="Self.SetExam" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <AssociationSet Name="FK_Category_Admin" Association="Self.FK_Category_Admin">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questions_Category" Association="Self.FK_Questions_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SetExam_Student" Association="Self.FK_SetExam_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="SetExam" EntitySet="SetExams" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuizDBModelStoreContainer" CdmEntityContainer="QuizDBEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="QuizDBModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="QuizDBModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="EncRoom" ColumnName="EncRoom" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Admin_Id" ColumnName="Admin_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="QuizDBModel.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Qu_Name" ColumnName="Qu_Name" />
+                <ScalarProperty Name="Answer_1" ColumnName="Answer_1" />
+                <ScalarProperty Name="Answer_2" ColumnName="Answer_2" />
+                <ScalarProperty Name="Answer_3" ColumnName="Answer_3" />
+                <ScalarProperty Name="Answer_4" ColumnName="Answer_4" />
+                <ScalarProperty Name="Answer_Correct" ColumnName="Answer_Correct" />
+                <ScalarProperty Name="Cat_Id" ColumnName="Cat_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SetExams">
+            <EntityTypeMapping TypeName="QuizDBModel.SetExam">
+              <MappingFragment StoreEntitySet="SetExam">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Exam_Name" ColumnName="Exam_Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="Stu_Id" ColumnName="Stu_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="QuizDBModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "ViewCatToShowQuestions";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+    
+
+}
+
+<h2>ViewCatToShowQuestions</h2>
+
+
+
+
+@foreach (var item in TempData["listCat"] as List<QuizTest.Models.Category> )
+{
+ 
+    @Html.ActionLink(item.Name , "ToGetTempData", new { Id = item.Id })    <br />
+
+}
+
+
+

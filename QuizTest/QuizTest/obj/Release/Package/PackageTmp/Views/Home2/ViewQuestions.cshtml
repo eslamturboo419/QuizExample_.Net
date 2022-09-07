@@ -1,0 +1,70 @@
+﻿@model IEnumerable<QuizTest.Models.Question>
+
+@{
+    ViewBag.Title = "ViewQuestions";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+
+<h2>ViewQuestions</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Qu_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer_3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer_4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer_Correct)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qu_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Answer_1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Answer_2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Answer_3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Answer_4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Answer_Correct)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

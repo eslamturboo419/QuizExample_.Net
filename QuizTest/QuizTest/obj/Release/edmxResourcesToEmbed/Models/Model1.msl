@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QuizDBModelStoreContainer" CdmEntityContainer="QuizDBEntities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="QuizDBModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="QuizDBModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="EncRoom" ColumnName="EncRoom" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Admin_Id" ColumnName="Admin_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="QuizDBModel.Question">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Qu_Name" ColumnName="Qu_Name" />
+          <ScalarProperty Name="Answer_1" ColumnName="Answer_1" />
+          <ScalarProperty Name="Answer_2" ColumnName="Answer_2" />
+          <ScalarProperty Name="Answer_3" ColumnName="Answer_3" />
+          <ScalarProperty Name="Answer_4" ColumnName="Answer_4" />
+          <ScalarProperty Name="Answer_Correct" ColumnName="Answer_Correct" />
+          <ScalarProperty Name="Cat_Id" ColumnName="Cat_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SetExams">
+      <EntityTypeMapping TypeName="QuizDBModel.SetExam">
+        <MappingFragment StoreEntitySet="SetExam">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Exam_Name" ColumnName="Exam_Name" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Stu_Id" ColumnName="Stu_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="QuizDBModel.Student">
+        <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

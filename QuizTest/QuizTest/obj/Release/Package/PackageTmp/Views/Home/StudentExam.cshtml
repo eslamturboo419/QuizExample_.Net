@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "StudentExam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>StudentExam</h2>
+
+<p> Ya Meeeet Welcome  </p>
+
+@using (Html.BeginForm())
+{
+
+    <input type="text" id="room" name="room" class="form-control" placeholder="Enter Room Number" />
+    <input type="submit" value="submit" class="btn btn-info" />
+
+}
+
+@if (ViewBag.error != null)
+{
+    <div class="alert alert-danger">
+       @ViewBag.error  
+    </div>
+}
+
+
